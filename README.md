@@ -2,7 +2,9 @@
 
 [Chinese README / 中文文档](./README_CN.md)
 
-`auditclaw` is an agent-driven audit core for code and smart contract review workflows. It turns audit methodology into reusable `Markdown + JSON` assets, while the framework itself handles task decomposition, fan-out execution, artifact capture, and run logging.
+`auditclaw` is an agent-driven audit core for code and smart contract review workflows. Its core value is simple: any auditor can turn their own audit knowledge into a custom AI scanning engine by writing the methodology into the auditor's `Markdown` files, while the framework handles task decomposition, fan-out execution, artifact capture, and run logging.
+
+In practice, that means the auditor focuses on prompts, checklists, heuristics, and reporting structure in files like `decompose.md`, `audit.md`, `report.md`, and `knowledge/*.md`. `auditclaw` turns those assets into an executable audit pipeline instead of requiring each auditor to build a new agent system from scratch.
 
 This repository currently implements the `Audit Core` only. It already provides the core scanning and audit execution pipeline, but it does **not** yet include the outer automation layer you might expect from something like `openclaw`, such as target onboarding, scheduling, notifications, ticket routing, external integrations, or broader operational orchestration.
 
@@ -16,7 +18,7 @@ This repository currently implements the `Audit Core` only. It already provides 
 4. Persist per-task outputs such as `memory.md`, `summary.md`, and `finding.json`.
 5. Execute optional `extra_steps` after the core scan finishes, for example report synthesis.
 
-This separation keeps the methodology in files like `auditor.json`, `decompose.md`, `audit.md`, and `knowledge/`, while the runtime layer owns concurrency, logging, event publishing, cost collection, and artifact layout.
+This separation keeps the methodology in files like `auditor.json`, `decompose.md`, `audit.md`, `report.md`, and `knowledge/`, while the runtime layer owns concurrency, logging, event publishing, cost collection, and artifact layout.
 
 ## Auditor Definition
 
@@ -36,10 +38,12 @@ auditors/
 In that structure:
 
 - `auditor.json` defines backend, model, runtime profile, variables, and extra steps.
-- `decompose.md` describes how to generate `task.json` files.
-- `audit.md` defines how a single task should be audited.
-- `knowledge/` stores checklist material and domain knowledge.
+- `decompose.md` encodes how the auditor wants an AI to break a target into audit tasks.
+- `audit.md` encodes how the auditor wants each task to be reviewed.
+- `knowledge/` stores checklist material and domain knowledge that can be injected into the scan.
 - `extra_steps` are used for post-processing after the core scan completes.
+
+The key idea is that the auditor writes expertise into these `md` assets, and `auditclaw` turns that expertise into a repeatable AI scanning engine.
 
 ## Runtime Layout
 

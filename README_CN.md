@@ -1,6 +1,8 @@
 # auditclaw
 
-`auditclaw` 是一个面向代码审计场景的 agent-driven 核心扫描框架。它把审计流程固定为可复用的核心流水线，核心审计方法主要通过 `Markdown + JSON` 进行定义和沉淀。
+`auditclaw` 是一个面向代码审计场景的 agent-driven 核心扫描框架。它最核心的价值是：任何审计师只需要把自己的审计知识、检查思路和提示词方法写进 auditor 里的 `Markdown` 文件，就可以组装出一个属于自己的 AI 扫描引擎，而不需要自己重写整套 agent 运行框架。
+
+更具体地说，审计师主要负责把方法论沉淀到 `decompose.md`、`audit.md`、`report.md` 和 `knowledge/*.md` 里；`auditclaw` 则负责把这些知识转成可执行的扫描流水线，包括任务拆解、fan-out 执行、产物归档、日志记录和成本统计。
 
 当前仓库实现的是 `Audit Core`，也就是核心扫描与审计执行层。它已经具备任务拆解、并行审计、运行日志、事件流、产物归档和 findings 落盘等能力，但**还没有**包含类似 `openclaw` 的外围自动化能力，例如目标接入、任务调度、消息通知、工单流转、外部平台联动和长期运营编排等外层系统。
 
@@ -18,7 +20,7 @@
 
 这样做的关键收益是：
 
-- 审计知识主要沉淀在 `auditor.json`、`decompose.md`、`audit.md` 和 `knowledge/` 中，便于版本化和复用。
+- 审计知识主要沉淀在 `auditor.json`、`decompose.md`、`audit.md`、`report.md` 和 `knowledge/` 中，便于版本化和复用。
 - 审计执行层负责并行、日志、成本统计、事件发布、目录初始化和结果归档，减少重复造轮子。
 - 审计结果既有适合人阅读的 Markdown，也有适合程序消费的结构化产物，比如 `finding.json`。
 
@@ -40,10 +42,12 @@ auditors/
 其中：
 
 - `auditor.json` 定义后端、模型、运行 profile、变量和额外步骤。
-- `decompose.md` 负责把目标项目拆成 `task.json` 集合。
-- `audit.md` 负责单个任务的审计逻辑。
-- `knowledge/` 存放 checklist、规则和方法论材料。
+- `decompose.md` 定义审计师希望 AI 如何拆解目标，生成 `task.json` 集合。
+- `audit.md` 定义审计师希望 AI 如何审计单个任务。
+- `knowledge/` 存放 checklist、规则和方法论材料，作为扫描过程中的知识注入源。
 - `extra_steps` 用于在核心扫描完成后做报告整理等后处理。
+
+核心思想就是：审计师写 `md`，框架负责把这些知识编排成可重复执行的 AI 扫描引擎。
 
 ## 运行时目录
 
