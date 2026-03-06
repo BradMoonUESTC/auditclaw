@@ -2,9 +2,11 @@
 
 [Chinese README / 中文文档](./README_CN.md)
 
-`auditclaw` is an agent-driven audit core for code and smart contract review workflows. Its core value is simple: any auditor can turn their own audit knowledge into a custom AI scanning engine by writing the methodology into the auditor's `Markdown` files, while the framework handles task decomposition, fan-out execution, artifact capture, and run logging.
+`auditclaw` is an agent-driven audit core for code and smart contract review workflows. Its core value is simple: every auditor can build a personal AI scanning engine by writing their own audit methodology into the auditor's `Markdown` files, while the framework handles task decomposition, fan-out execution, artifact capture, and run logging.
 
 In practice, that means the auditor focuses on prompts, checklists, heuristics, and reporting structure in files like `decompose.md`, `audit.md`, `report.md`, and `knowledge/*.md`. `auditclaw` turns those assets into an executable audit pipeline instead of requiring each auditor to build a new agent system from scratch.
+
+The result is not a shared generic scanner with a few toggles. It is a framework that lets each auditor encode their own style, standards, instincts, and review workflow into a dedicated AI scanning engine.
 
 This repository currently implements the `Audit Core` only. It already provides the core scanning and audit execution pipeline, but it does **not** yet include the outer automation layer you might expect from something like `openclaw`, such as target onboarding, scheduling, notifications, ticket routing, external integrations, or broader operational orchestration.
 
@@ -43,7 +45,7 @@ In that structure:
 - `knowledge/` stores checklist material and domain knowledge that can be injected into the scan.
 - `extra_steps` are used for post-processing after the core scan completes.
 
-The key idea is that the auditor writes expertise into these `md` assets, and `auditclaw` turns that expertise into a repeatable AI scanning engine.
+The key idea is that the auditor writes expertise into these `md` assets, and `auditclaw` turns that expertise into a repeatable AI scanning engine that belongs to that auditor's methodology.
 
 ## Runtime Layout
 
