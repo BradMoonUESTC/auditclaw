@@ -1,0 +1,9 @@
+{
+  "name": "Example Minimal Audit",
+  "config": {
+    "backend": "codex",
+    "model": "gpt-5-mini",
+    "effort": "medium"
+  },
+  "profile": "quick"
+}

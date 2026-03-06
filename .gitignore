@@ -1,0 +1,21 @@
+DESIGN_V2.md
+DESIGN_V3.md
+.env
+.env.*
+!.env.example
+
+# Sensitive files
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Runtime logs and generated run records
+**/audit-materials/logs/

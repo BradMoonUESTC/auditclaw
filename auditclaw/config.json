@@ -1,0 +1,10 @@
+{
+  "_comment": "Claude SDK backend configuration. Set enabled=true to activate.",
+  "enabled": false,
+  "backend": "claude-sdk",
+  "model": "claude-opus-4-6",
+  "api_key": "",
+  "api_base_url": "",
+  "max_tokens": 32768,
+  "max_tool_rounds": 40
+}

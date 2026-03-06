@@ -1,0 +1,25 @@
+{
+  "task_id": "task_03",
+  "title": "Dividend accounting: profitPerShare, payouts, and distribute",
+  "scope": "File: stack_wbnb.sol (profitPerShare_, payoutsTo_, dividendBalance_, distribute, allocateFees)",
+  "targets": ["allocateFees", "distribute", "dividendsOf", "dailyEstimate"],
+  "what_to_reason": [
+    "Correctness of profitPerShare_ updates and how dividends are credited",
+    "Safe handling of int256 conversions and under/overflows in payoutsTo_",
+    "Periodic distribution logic correctness and time-based arithmetic",
+    "Edge case handling when tokenSupply_ == 0 during distribution"
+  ],
+  "how_to_reason": [
+    "Review `allocateFees` for allocation split between instant and drip pools",
+    "Manually simulate profitPerShare_ changes from allocateFees and distribute",
+    "Audit `dividendsOf` int256 -> uint256 math and ensure non-negative results",
+    "Check `dailyEstimate` uses and assumptions about `dividendBalance_` and payoutRate_"
+  ],
+  "priority": "high",
+  "edge_cases": [
+    "Time manipulation to trigger large `profit` payouts or zeroing dividendBalance_",
+    "payoutsTo_ underflow/overflow when many transfers or sells occur in quick succession",
+    "Small tokenSupply_ leading to massive per-share profit due to division"
+  ]
+}
+

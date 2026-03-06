@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends.build_meta"
+
+[project]
+name = "auditclaw"
+version = "0.1.0"
+description = "Agent-driven audit core with task decomposition, fan-out scanning, and artifact capture"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+dependencies = []
+
+[project.scripts]
+auditclaw = "auditclaw.cli:main"
+
+[project.optional-dependencies]
+claude = ["anthropic>=0.30"]
+
+[tool.setuptools.packages.find]
+include = ["auditclaw*"]

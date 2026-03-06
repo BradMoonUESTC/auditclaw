@@ -1,0 +1,25 @@
+{
+  "task_id": "task_02",
+  "title": "Token economics: buy pricing, supply, and purchaseTokens",
+  "scope": "File: stack_wbnb.sol (BankrollNetworkStack.purchaseTokens, buyPrice, sellPrice, calculateTokensReceived)",
+  "targets": ["purchaseTokens", "buy", "buyFor", "calculateTokensReceived", "buyPrice", "sellPrice"],
+  "what_to_reason": [
+    "Correct token minting math and supply updates",
+    "Entry/exit fee application and rounding/truncation effects",
+    "Use of `magnitude` and profitPerShare scaling with int256 casts",
+    "Initial purchase edge-case when tokenSupply_ == 0"
+  ],
+  "how_to_reason": [
+    "Trace values for small and large _incomingeth to identify rounding errors",
+    "Check casts between uint256 and int256 around payoutsTo_ and profitPerShare_",
+    "Consider precision loss from division and whether fees can be drained via rounding",
+    "Construct sequences of buys/sells to exercise initial-mint path and repeated mints"
+  ],
+  "priority": "high",
+  "edge_cases": [
+    "Very small transfers leading to zero tokens due to rounding",
+    "Huge buys causing overflow of tokenSupply_ (though SafeMath used)",
+    "Mismatch between on-chain token units and assumed 1:1 mapping in frontend helpers"
+  ]
+}
+

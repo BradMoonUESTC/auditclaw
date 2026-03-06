@@ -1,0 +1,18 @@
+{
+  "name": "Example Solidity Audit",
+  "config": {
+    "backend": "codex",
+    "model": "gpt-5-mini",
+    "effort": "medium"
+  },
+  "profile": "standard",
+  "vars": {
+    "task_count": 6
+  },
+  "extra_steps": [
+    {
+      "name": "report",
+      "template": "report.md"
+    }
+  ]
+}

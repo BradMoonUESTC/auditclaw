@@ -1,0 +1,22 @@
+{
+  "task_id": "task_05",
+  "title": "Access control and state mutability: modifiers and public variables",
+  "scope": "Files: stack_wbnb.sol, proxy_wbnb.sol (modifiers, public variables, constructor initialisation)",
+  "targets": ["onlyBagholders", "onlyStronghands", "public fields", "constructors"],
+  "what_to_reason": [
+    "Whether privileged operations exist and if access control is enforced",
+    "Whether public state variables leak sensitive info or allow manipulation",
+    "Constructor initialization correctness and ownership assumptions"
+  ],
+  "how_to_reason": [
+    "Search the codebase for admin-only functions or upgrade hooks (none expected)",
+    "Review modifiers to ensure they check the correct conditions",
+    "Verify public variables like tokenAddress, stackAddress and whether they can be changed"
+  ],
+  "priority": "medium",
+  "edge_cases": [
+    "Missing owner/ownerless contracts where admin functions are needed",
+    "Uninitialized addresses leading to accidental calls to zero address"
+  ]
+}
+
