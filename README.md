@@ -8,7 +8,7 @@ In practice, that means the auditor focuses on prompts, checklists, heuristics, 
 
 The result is not a shared generic scanner with a few toggles. It is a framework that lets each auditor encode their own style, standards, instincts, and review workflow into a dedicated AI scanning engine.
 
-This repository currently implements the `Audit Core` only. It already provides the core scanning and audit execution pipeline, but it does **not** yet include the outer automation layer you might expect from something like `openclaw`, such as target onboarding, scheduling, notifications, ticket routing, external integrations, or broader operational orchestration.
+This repository is intentionally focused on the `Audit Core`. It provides the scanning and audit execution pipeline itself, while exposing clean integration surfaces so systems like `openclaw` can plug into it directly when they need onboarding, orchestration, scheduling, or platform workflows around the engine.
 
 ## Core Design
 
@@ -72,7 +72,7 @@ The important contract is:
 - `audit` must write outputs into each task-specific directory
 - confirmed issues should be persisted to that task's `finding.json` during the audit process
 
-## Scope And Non-Goals
+## Scope
 
 What `auditclaw` already covers:
 
@@ -83,15 +83,15 @@ What `auditclaw` already covers:
 - HTTP, stdio, and Python API access to the audit core
 - run logs, event streams, and cost accounting
 
-What it does **not** yet include:
+What it intentionally leaves to external systems:
 
-- `openclaw`-style target onboarding and lifecycle management
+- target onboarding and lifecycle management
 - scheduling, retries, queue management, and broader orchestration
 - notification, approval, ticketing, or collaboration workflows
 - persistent platform-level automation around long-running audit operations
 - full external integration and closed-loop operational automation
 
-The current repository should be understood as the core execution engine, not the full surrounding platform.
+The current repository should be understood as the core execution engine. Its HTTP, stdio, and Python APIs exist to make embedding straightforward, including direct integration from systems like `openclaw`.
 
 ## Quick Start
 
@@ -116,4 +116,4 @@ result = run_auditor(
 print(result.summary_path)
 ```
 
-If you need to expose the core to external systems, you can also run the HTTP server or the stdio RPC bridge.
+If you need to expose the core to external systems, you can also run the HTTP server or the stdio RPC bridge. These interfaces are provided so platforms such as `openclaw` can connect to `auditclaw` directly instead of reimplementing the engine.
